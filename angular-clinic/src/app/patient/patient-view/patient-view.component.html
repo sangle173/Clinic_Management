@@ -1,0 +1,98 @@
+<div class="container">
+  <table id="example" class="table table-hover table-striped mt-5">
+    <thead>
+    <tr>
+      <td colspan="7" class="bg-dark text-white text-center">
+        <h3>Thông Tin Bệnh Nhân</h3>
+      </td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr class="font-weight-bold text-secondary">
+      <td style="width: 10%">Họ Tên:</td>
+      <td>{{patient.name}}</td>
+      <td style="width: 10%">Điện Thoại:</td>
+      <td>{{patient.phoneNumber}}</td>
+    </tr>
+    <tr class="font-weight-bold text-secondary">
+      <td>Giới Tính:</td>
+      <td>{{patient.gender}}</td>
+      <td>Năm Sinh:</td>
+      <td>{{patient.yearOfBirth}}</td>
+    </tr>
+    <tr class="font-weight-bold text-secondary">
+      <td>Chiều Cao:</td>
+      <td>{{patient.height}}</td>
+      <td>Cân Nặng:</td>
+      <td>{{patient.weight}}</td>
+    </tr>
+    <tr class="font-weight-bold text-secondary">
+      <td>Địa Chỉ:</td>
+      <td>{{patient.address}}</td>
+      <td>Ngày Tạo:</td>
+      <td>{{patient.createdDate | date: 'dd/MM/yyyy'}}</td>
+    </tr>
+    </tbody>
+  </table>
+  <table class="table table-hover table-striped mt-5">
+    <thead>
+    <tr>
+      <td colspan="7" class="bg-dark text-white text-center">
+        <h3>Lịch Sử Khám</h3>
+      </td>
+    </tr>
+    <tr>
+      <th>#</th>
+      <th>Ngày Khám</th>
+      <th>Bệnh Lý</th>
+      <th>Đơn Thuốc</th>
+      <th>Ghi Chú</th>
+      <th>Tiền Khám</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let history of histories| slice: (page-1) * pageSize : page * pageSize;index as i">
+      <td class="font-weight-bold text-secondary" style="width: 5%">{{i + 1}}</td>
+      <td class="font-weight-bold text-secondary">{{history.dateCreated | date: 'dd/MM/yyyy'}}</td>
+      <td>
+          <span class="font-weight-bold text-danger" *ngFor="let path of history.pathologicals">
+            <span>&#9758; {{path['pathologicalName']}}</span> <br>
+          </span>
+      </td>
+      <td>
+          <span *ngFor="let medicine of history.medicines">
+            <span class="font-weight-bold text-success">&#9957; {{medicine['medicineName']}}</span> <br>
+          </span>
+      </td>
+      <td class="font-weight-bold text-dark">{{history.note}}</td>
+      <td class="font-weight-bold text-primary">{{history.unitPrice | number : '1.0-0'}}đ</td>
+    </tr>
+    </tbody>
+  </table>
+  <div class="clearfix">
+    <div class="hint-text">Hiển thị <b>{{pageSize}}</b> trên <b>{{collectionSize}}</b> Bệnh Lý</div>
+    <ngb-pagination class="d-flex justify-content-end"
+                    [(page)]="page"
+                    [pageSize]="pageSize"
+                    [collectionSize]="collectionSize"
+                    [maxSize]="5"
+                    [rotate]="true"
+                    [ellipses]="true"
+                    [boundaryLinks]="true">
+      <ng-template ngbPaginationFirst>Trang đầu</ng-template>
+      <ng-template ngbPaginationLast>Trang cuối</ng-template>
+      <ng-template ngbPaginationEllipsis>...</ng-template>
+      <ng-template ngbPaginationNumber let-page>{{ page }}</ng-template>
+    </ngb-pagination>
+    <hr>
+  </div>
+</div>
+<ngx-bootstrap-spinner
+  bdColor="rgba(51,51,51,0.8)"
+  size="default"
+  color="#fff"
+  type="border"
+  loadingText="Đang tải dữ liệu..."
+>
+</ngx-bootstrap-spinner>
+
