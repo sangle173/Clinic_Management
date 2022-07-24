@@ -1,5 +1,6 @@
 package com.example.clinic.controller;
 
+import com.example.clinic.StringHelper;
 import com.example.clinic.model.Patient;
 import com.example.clinic.service.PatientServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,7 @@ public class PatientController {
     @PostMapping(value = "/new", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ResponseEntity<Patient> createNewPatient(@RequestBody Patient patient) {
+        patient.setName(StringHelper.standardizedString(patient.getName()));
         patientService.save(patient);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }

@@ -15,6 +15,7 @@ public class HistoryDTO {
     private LocalDate dateCreated;
     private Long unitPrice;
     private String note;
+    private String doctorName;
     private Long patientId;
     private Set<Long> pathological = new HashSet<>();
     private Set<Long> medicines = new HashSet<>();

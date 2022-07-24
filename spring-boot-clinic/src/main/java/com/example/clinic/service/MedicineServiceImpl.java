@@ -1,5 +1,6 @@
 package com.example.clinic.service;
 
+import com.example.clinic.StringHelper;
 import com.example.clinic.model.Medicine;
 import com.example.clinic.repositories.MedicineRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,7 @@ public class MedicineServiceImpl implements CRUDService<Medicine> {
 
     @Override
     public void save(Medicine medicine) {
+        medicine.setMedicineName(StringHelper.standardizedString(medicine.getMedicineName()));
         medicineRepo.save(medicine);
     }
 
@@ -39,6 +41,6 @@ public class MedicineServiceImpl implements CRUDService<Medicine> {
     }
 
     public List<Medicine> findByNameContaining(String keyword){
-        return medicineRepo.findByMedicineNameContaining(keyword);
+        return medicineRepo.findByMedicineNameContainingOrderByMedicineNameAsc(keyword);
     }
 }

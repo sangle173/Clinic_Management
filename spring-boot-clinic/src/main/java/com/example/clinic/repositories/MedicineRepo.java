@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface MedicineRepo extends JpaRepository<Medicine, Long> {
-    List<Medicine> findByMedicineNameContaining(String keyword);
+    List<Medicine> findByMedicineNameContainingOrderByMedicineNameAsc(String keyword);
 }

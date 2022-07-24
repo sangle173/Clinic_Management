@@ -12,7 +12,7 @@ import {History} from '../../model/history';
 import {Pathological} from '../../model/pathological';
 import {Medicine} from '../../model/medicine';
 
-const DAILOC = ['ĐẠI AN', 'ĐẠI CHÁNH', 'ĐẠI CƯỜNG', 'ĐẠI ĐỒNG', 'ĐẠI HIỆP', 'ĐẠI HÒA', 'ĐẠI HỒNG', 'ĐẠI HƯNG', 'ĐẠI LÃNH', 'ĐẠI MINH', 'ĐẠI NGHĨA', 'ĐẠI PHONG', 'ĐẠI QUANG', 'ĐẠI SƠN', 'ĐẠI TÂN', 'ĐẠI THẮNG', 'ĐẠI THẠNH', 'ĐÀ NẴNG', 'SÀI GÒN'];
+const DAILOC = ['ĐẠI AN', 'ÁI NGHĨA', 'DUY HÒA', 'DUY XUYÊN', 'ĐẠI CHÁNH', 'ĐẠI CƯỜNG', 'ĐẠI ĐỒNG', 'ĐẠI HIỆP', 'ĐẠI HÒA', 'ĐẠI HỒNG', 'ĐẠI HƯNG', 'ĐẠI LÃNH', 'ĐẠI MINH', 'ĐẠI NGHĨA', 'ĐẠI PHONG', 'ĐẠI QUANG', 'ĐẠI SƠN', 'ĐẠI TÂN', 'ĐẠI THẮNG', 'ĐẠI THẠNH', 'ĐÀ NẴNG', 'SÀI GÒN', 'KHÁC'];
 
 @Component({
   selector: 'app-patient-list',
@@ -78,6 +78,7 @@ export class PatientListComponent implements OnInit {
       unitPrice: '',
       note: '',
       patientId: '',
+      doctorName: new FormControl('BS. ĐÀO'),
       pathologicals: this.fb.array([]),
       medicineArray: this.fb.array([]),
     });
@@ -121,7 +122,6 @@ export class PatientListComponent implements OnInit {
 
   onSubmit() {
     const history = this.createHistoryFrom.value;
-    console.log(history);
     const pathological = [];
     const pathologicalId = history['pathologicals'];
     for (let i = 0; i < pathologicalId.length; i++) {

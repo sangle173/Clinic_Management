@@ -1,5 +1,6 @@
 package com.example.clinic.controller;
 
+import com.example.clinic.StringHelper;
 import com.example.clinic.model.History;
 import com.example.clinic.model.Medicine;
 import com.example.clinic.model.Pathological;
@@ -60,9 +61,10 @@ public class HistoryController {
     @ResponseBody
     public ResponseEntity<History> createNewHistory(@RequestBody HistoryDTO historyDTO) {
         History history = new History();
-        history.setNote(historyDTO.getNote());
+        history.setNote(StringHelper.standardizedString(historyDTO.getNote()));
         history.setUnitPrice(historyDTO.getUnitPrice());
         history.setPatient(patientService.findById(historyDTO.getPatientId()));
+        history.setDoctorName(historyDTO.getDoctorName());
         Set<Pathological> pathologicalSet = new HashSet<>();
         Pathological pathological = null;
         for (Long element : historyDTO.getPathological()) {

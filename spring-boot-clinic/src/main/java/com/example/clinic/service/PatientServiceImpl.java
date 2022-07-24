@@ -61,6 +61,11 @@ public class PatientServiceImpl implements CRUDService<Patient> {
     }
 
     public List<Patient> findByKeyword(String keyword) {
-        return patientRepo.findByNameContaining(keyword);
+        List<Patient> patients = patientRepo.findByNameContaining(keyword);
+        Comparator<Patient> compareById =
+                (Patient o1, Patient o2) -> o1.getId().compareTo(o2.getId());
+
+        Collections.sort(patients, compareById.reversed());
+        return patients;
     }
 }

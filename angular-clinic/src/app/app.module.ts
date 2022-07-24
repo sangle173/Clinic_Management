@@ -10,7 +10,7 @@ import { FooterComponent } from './footer/footer.component';
 import { PatientListComponent } from './patient/patient-list/patient-list.component';
 import { PatientCreateComponent } from './patient/patient-create/patient-create.component';
 import {NgxSpinnerModule} from 'ngx-bootstrap-spinner';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgxPaginationModule} from 'ngx-pagination';
 import { MedicinListComponent } from './medicine/medicin-list/medicin-list.component';
 import { PathologicalListComponent } from './pathological/pathological-list/pathological-list.component';
@@ -28,17 +28,18 @@ import { PatientViewComponent } from './patient/patient-view/patient-view.compon
     PathologicalListComponent,
     PatientViewComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    NgbModule,
-    HttpClientModule,
-    NgxSpinnerModule,
-    ReactiveFormsModule,
-    NgbPaginationModule,
-    NgxPaginationModule
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        NgbModule,
+        HttpClientModule,
+        NgxSpinnerModule,
+        ReactiveFormsModule,
+        NgbPaginationModule,
+        NgxPaginationModule,
+        FormsModule
 
-  ],
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface PathologicalRepo extends JpaRepository<Pathological, Long> {
-    List<Pathological> findByPathologicalNameContaining(String keyword);
+    List<Pathological> findByPathologicalNameContainingOrderByPathologicalNameAsc(String keyword);
 }

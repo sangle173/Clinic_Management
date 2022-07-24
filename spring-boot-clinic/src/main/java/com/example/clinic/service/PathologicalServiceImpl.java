@@ -1,6 +1,6 @@
 package com.example.clinic.service;
 
-import com.example.clinic.model.Medicine;
+import com.example.clinic.StringHelper;
 import com.example.clinic.model.Pathological;
 import com.example.clinic.repositories.PathologicalRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +27,7 @@ public class PathologicalServiceImpl implements CRUDService<Pathological> {
 
     @Override
     public void save(Pathological pathological) {
+        pathological.setPathologicalName(StringHelper.standardizedString(pathological.getPathologicalName()));
         pathologicalRepo.save(pathological);
     }
 
@@ -40,7 +41,7 @@ public class PathologicalServiceImpl implements CRUDService<Pathological> {
         pathologicalRepo.deleteById(id);
     }
 
-    public List<Pathological> findByNameContaining(String keyword){
-        return pathologicalRepo.findByPathologicalNameContaining(keyword);
+    public List<Pathological> findByNameContaining(String keyword) {
+        return pathologicalRepo.findByPathologicalNameContainingOrderByPathologicalNameAsc(keyword);
     }
 }

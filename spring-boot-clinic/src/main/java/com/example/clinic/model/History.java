@@ -27,6 +27,7 @@ public class History {
     private LocalDate dateCreated;
     private Long unitPrice;
     private String note;
+    private String doctorName;
 
     @ManyToOne
     @JoinColumn(name = "patient_id")
