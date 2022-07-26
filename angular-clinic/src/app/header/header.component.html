@@ -1,14 +1,11 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
-    <a class="navbar-brand" routerLink="/patients/list">Trang Chủ</a>
+    <a class="navbar-brand" routerLink="/">Trang Chủ</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link" routerLink="/patients/list">Bệnh Nhân</a>
-        </li>
         <li class="nav-item">
           <a class="nav-link" routerLink="/medicines/list">Thuốc</a>
         </li>
@@ -17,6 +14,9 @@
         </li>
       </ul>
     </div>
+    <form class="d-flex">
+      <a class="btn btn-block" routerLink="/patients/new">Thêm bệnh nhân</a>
+    </form>
   </div>
 </nav>
 

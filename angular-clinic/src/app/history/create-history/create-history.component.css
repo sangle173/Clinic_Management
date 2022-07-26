@@ -1,0 +1,22 @@
+label {
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.my-label {
+  font-weight: bold!important;
+  font-size: 14px;
+}
+
+.my-select option {
+  font-weight: normal;
+  font-size: 14px;
+}
+
+.my-select {
+  font-weight: normal;
+  font-size: 12px;
+}
+.btn-delete {
+  border: none!important;
+}

@@ -1,1 +1,89 @@
-<p>patient-create works!</p>
+<div class="container">
+  <form [formGroup]="createForm" (ngSubmit)="submit()">
+    <fieldset>
+      <div class="form-row mt-1 text-center">
+        <div class="col-12">
+          <div class="form-group bg-dark">
+            <label class="col-form-label  text-white"><h5>Tạo mới bệnh nhân</h5></label>
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="col-3">
+          <div class="form-group">
+            <label for="name" class="col-form-label">Họ tên: <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" formControlName="name" placeholder="Nhập họ tên..." id="name">
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="form-group">
+            <label for="gender" class="col-form-label">Giới tính:</label>
+            <select name="category" class="form-control  " id="gender"
+                    formControlName="gender">
+              <option value="Nam" selected>Nam</option>
+              <option value="Nữ">Nữ</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="form-group">
+            <label for="phoneNumber" class="col-form-label">Điện thoại:</label>
+            <input type="text" class="form-control" placeholder="Nhập số điện thoại..." formControlName="phoneNumber"
+                   id="phoneNumber">
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="d-flex">
+            <div class="form-group">
+              <label for="birth" class="col-form-label">Tháng/</label>
+              <select name="address" class="form-control" formControlName="monthOfBirth" id="birth">
+                <option *ngFor="let month of monthList"
+                        [ngValue]="month">{{month}}</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="birth" class="col-form-label">năm sinh</label>
+              <select name="address" class="form-control" formControlName="yearOfBirth">
+                <option *ngFor="let year of yearList"
+                        [ngValue]="year">{{year}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="col-3">
+          <div class="form-group">
+            <label for="address" class="col-form-label">Địa chỉ:</label>
+            <select name="address" class="form-control" id="address"
+                    formControlName="address">
+              <option disabled value="" selected>Chọn địa chỉ</option>
+              <option *ngFor="let address of addressList"
+                      [ngValue]="address">{{address}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="form-group">
+            <label for="height" class="col-form-label">Chiều cao:</label>
+            <input type="text" class="form-control" formControlName="height"
+                   id="height">
+          </div>
+        </div>
+        <div class="col-3">
+          <div class="form-group">
+            <label for="weight" class="col-form-label">Cân nặng:</label>
+            <input type="text" class="form-control" formControlName="weight"
+                   id="weight">
+          </div>
+        </div>
+      </div>
+      <div class="form-group text-center">
+        <button type="button" routerLink="/" class="btn-sm btn-secondary">Quay Lại</button>
+        <button type="submit" class="btn-sm ml-1 btn-secondary">Chỉnh Sữa
+        </button>
+      </div>
+    </fieldset>
+  </form>
+
+</div>

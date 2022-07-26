@@ -21,8 +21,9 @@ public class PatientController {
     PatientServiceImpl patientService;
 
     @GetMapping("/list")
-    public ResponseEntity<List<Patient>> getAllPatient(@RequestParam(value = "keyword", defaultValue = "") String keyword) {
-        return new ResponseEntity<>(patientService.findByKeyword(keyword), HttpStatus.OK);
+    public ResponseEntity<List<Patient>> getAllPatient(@RequestParam(value = "name", defaultValue = "") String name, @RequestParam(value = "address", defaultValue = "") String address,
+                                                       @RequestParam(value = "phoneNumber", defaultValue = "") String phoneNumber) {
+        return new ResponseEntity<>(patientService.findByKeyword(name, address,phoneNumber), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
@@ -35,8 +36,25 @@ public class PatientController {
     @ResponseBody
     public ResponseEntity<Patient> createNewPatient(@RequestBody Patient patient) {
         patient.setName(StringHelper.standardizedString(patient.getName()));
-        patientService.save(patient);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        Patient patient1 = patientService.save(patient);
+        return new ResponseEntity<>(patient1, HttpStatus.CREATED);
+    }
+
+    @PutMapping(value = "/update/{patientId}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity<Patient> createNewPatient(@RequestBody Patient patient, @PathVariable("patientId") Long id) {
+        Patient patientExisting = patientService.findById(id);
+        patientExisting.setName(patient.getName());
+        patientExisting.setGender(patient.getGender());
+        patientExisting.setPhoneNumber(patient.getPhoneNumber());
+        patientExisting.setYearOfBirth(patient.getYearOfBirth());
+        patientExisting.setCreatedDate(patient.getCreatedDate());
+        patientExisting.setAddress(patient.getAddress());
+        patientExisting.setWeight(patient.getWeight());
+        patientExisting.setHeight(patient.getHeight());
+        patientExisting.setName(StringHelper.standardizedString(patient.getName()));
+        Patient patient1 = patientService.save(patientExisting);
+        return new ResponseEntity<>(patient1, HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")

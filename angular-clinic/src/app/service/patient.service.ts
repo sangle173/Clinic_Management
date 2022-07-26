@@ -14,8 +14,8 @@ export class PatientService {
   constructor(private http: HttpClient) {
   }
 
-  getAll(keyword: string): Observable<Patient[]> {
-    return this.http.get<Patient[]>(API_URL + `/patients/list?keyword=${keyword}`);
+  getAll(name: string, address: string, phoneNumber: string): Observable<Patient[]> {
+    return this.http.get<Patient[]>(API_URL + `/patients/list?name=${name}&address=${address}&phoneNumber=${phoneNumber}`);
   }
 
   savePatient(patient: Patient): Observable<Patient> {
@@ -27,7 +27,7 @@ export class PatientService {
   }
 
   updatePatient(id: number, patient: Patient): Observable<Patient> {
-    return this.http.put<Patient>(`${API_URL}/patients/${id}`, patient);
+    return this.http.put<Patient>(`${API_URL}/patients/update/${id}`, patient);
   }
 
   deletePatient(id: number): Observable<Patient> {

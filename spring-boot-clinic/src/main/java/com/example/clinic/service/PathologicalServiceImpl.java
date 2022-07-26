@@ -26,9 +26,9 @@ public class PathologicalServiceImpl implements CRUDService<Pathological> {
     }
 
     @Override
-    public void save(Pathological pathological) {
+    public Pathological save(Pathological pathological) {
         pathological.setPathologicalName(StringHelper.standardizedString(pathological.getPathologicalName()));
-        pathologicalRepo.save(pathological);
+        return pathologicalRepo.save(pathological);
     }
 
     @Override

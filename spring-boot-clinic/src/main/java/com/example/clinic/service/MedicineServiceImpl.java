@@ -25,9 +25,9 @@ public class MedicineServiceImpl implements CRUDService<Medicine> {
     }
 
     @Override
-    public void save(Medicine medicine) {
+    public Medicine save(Medicine medicine) {
         medicine.setMedicineName(StringHelper.standardizedString(medicine.getMedicineName()));
-        medicineRepo.save(medicine);
+        return medicineRepo.save(medicine);
     }
 
     @Override

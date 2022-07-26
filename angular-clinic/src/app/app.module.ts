@@ -15,6 +15,8 @@ import {NgxPaginationModule} from 'ngx-pagination';
 import { MedicinListComponent } from './medicine/medicin-list/medicin-list.component';
 import { PathologicalListComponent } from './pathological/pathological-list/pathological-list.component';
 import { PatientViewComponent } from './patient/patient-view/patient-view.component';
+import { CreateHistoryComponent } from './history/create-history/create-history.component';
+import {Ng2SearchPipeModule} from 'ng2-search-filter';
 
 
 @NgModule({
@@ -26,7 +28,8 @@ import { PatientViewComponent } from './patient/patient-view/patient-view.compon
     PatientCreateComponent,
     MedicinListComponent,
     PathologicalListComponent,
-    PatientViewComponent
+    PatientViewComponent,
+    CreateHistoryComponent
   ],
     imports: [
         BrowserModule,
@@ -37,7 +40,8 @@ import { PatientViewComponent } from './patient/patient-view/patient-view.compon
         ReactiveFormsModule,
         NgbPaginationModule,
         NgxPaginationModule,
-        FormsModule
+        FormsModule,
+        Ng2SearchPipeModule
 
     ],
   providers: [],

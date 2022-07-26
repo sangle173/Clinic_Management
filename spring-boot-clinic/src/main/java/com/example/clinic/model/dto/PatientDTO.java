@@ -1,6 +1,5 @@
 package com.example.clinic.model.dto;
 
-import com.example.clinic.model.Patient;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,20 +20,7 @@ public class PatientDTO {
     private String yearOfBirth;
     private LocalDate createdDate;
     private String address;
-    private int weight;
-    private int height;
+    private String weight;
+    private String height;
     private Long historyId;
-
-    public Patient changeDTOToObject (PatientDTO patientDTO) {
-        Patient patient = new Patient();
-        patient.setName(patientDTO.getName());
-        patient.setGender(patientDTO.getGender());
-        patient.setPhoneNumber(patientDTO.getPhoneNumber());
-        patient.setYearOfBirth(patientDTO.getYearOfBirth());
-        patient.setCreatedDate(LocalDate.now());
-        patient.setAddress(patientDTO.getAddress());
-        patient.setWeight(patientDTO.getWeight());
-        patient.setHeight(patientDTO.getHeight());
-        return patient;
-    }
 }

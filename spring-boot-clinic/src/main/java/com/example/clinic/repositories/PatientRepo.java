@@ -14,7 +14,7 @@ public interface PatientRepo extends JpaRepository<Patient, Long> {
     @Query("select  p from Patient p where " +
             "concat(p.id, p.name, p.phoneNumber, p.yearOfBirth, p.weight, p.height)" +
             "like %?1%")
-    Page<Patient> findByNameContaining(String keyword, Pageable pageable);
+    Page<Patient> findByNameContainingAndAddressContainingAndPhoneNumberContaining(String keyword, Pageable pageable);
 
-    List<Patient> findByNameContaining(String keyword);
+    List<Patient> findByNameContainingAndAddressContainingAndPhoneNumberContaining(String name, String address, String phoneNumber);
 }

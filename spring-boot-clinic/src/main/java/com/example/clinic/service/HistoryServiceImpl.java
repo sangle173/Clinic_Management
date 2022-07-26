@@ -25,9 +25,9 @@ public class HistoryServiceImpl implements CRUDService<History> {
     }
 
     @Override
-    public void save(History history) {
+    public History save(History history) {
         history.setDateCreated(LocalDate.now());
-        historyRepo.save(history);
+        return historyRepo.save(history);
     }
 
     @Override

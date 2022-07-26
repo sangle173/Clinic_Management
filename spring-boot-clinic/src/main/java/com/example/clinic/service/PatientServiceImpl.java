@@ -27,7 +27,7 @@ public class PatientServiceImpl implements CRUDService<Patient> {
         int pageSize = 5;
         Pageable pageable = PageRequest.of(pageNum - 1, pageSize, sort);
         if (keyword != null) {
-            return patientRepo.findByNameContaining(keyword, pageable);
+            return patientRepo.findByNameContainingAndAddressContainingAndPhoneNumberContaining(keyword, pageable);
         }
         return patientRepo.findAll(pageable);
     }
@@ -38,9 +38,9 @@ public class PatientServiceImpl implements CRUDService<Patient> {
     }
 
     @Override
-    public void save(Patient patient) {
+    public Patient save(Patient patient) {
         patient.setCreatedDate(LocalDate.now());
-        patientRepo.save(patient);
+        return patientRepo.save(patient);
     }
 
     @Override
@@ -60,8 +60,8 @@ public class PatientServiceImpl implements CRUDService<Patient> {
         patientRepo.deleteById(id);
     }
 
-    public List<Patient> findByKeyword(String keyword) {
-        List<Patient> patients = patientRepo.findByNameContaining(keyword);
+    public List<Patient> findByKeyword(String name, String address, String phoneNumber) {
+        List<Patient> patients = patientRepo.findByNameContainingAndAddressContainingAndPhoneNumberContaining(name, address, phoneNumber);
         Comparator<Patient> compareById =
                 (Patient o1, Patient o2) -> o1.getId().compareTo(o2.getId());
 

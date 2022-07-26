@@ -1,0 +1,254 @@
+<div class="row">
+  <div class="col-6 border-right">
+    <div class="container">
+      <form [formGroup]="updateForm" (ngSubmit)="updatePatient(patientId)" *ngIf="updateForm">
+        <fieldset>
+          <div class="form-row mt-1 text-center">
+            <div class="col-12">
+              <div class="form-group bg-dark">
+                <label class="col-form-label  text-white"><h5>Thông Tin Bệnh Nhân</h5></label>
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col-3">
+              <div class="form-group">
+                <label for="name" class="col-form-label">Họ tên: <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" formControlName="name" id="name">
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="form-group">
+                <label for="gender" class="col-form-label">Giới tính:</label>
+                <select name="category" class="form-control  " id="gender"
+                        formControlName="gender">
+                  <option value="Nam" selected>Nam</option>
+                  <option value="Nữ">Nữ</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="form-group">
+                <label for="phoneNumber" class="col-form-label">Điện thoại:</label>
+                <input type="text" class="form-control  " formControlName="phoneNumber"
+                       id="phoneNumber">
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="d-flex">
+                <div class="form-group">
+                  <label for="birth" class="col-form-label">Tháng/</label>
+                  <select name="address" class="form-control" formControlName="monthOfBirth" id="birth">
+                    <option *ngFor="let month of monthList"
+                            [ngValue]="month">{{month}}</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="birth" class="col-form-label">năm sinh</label>
+                  <select name="address" class="form-control" formControlName="yearOfBirth">
+                    <option *ngFor="let year of yearList"
+                            [ngValue]="year">{{year}}</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col-3">
+              <div class="form-group">
+                <label for="address" class="col-form-label">Địa chỉ:</label>
+                <select name="address" class="form-control" id="address"
+                        formControlName="address">
+                  <option disabled value="" selected>Chọn địa chỉ</option>
+                  <option *ngFor="let address of addressList"
+                          [ngValue]="address">{{address}}</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="form-group">
+                <label for="height" class="col-form-label">Chiều cao:</label>
+                <input type="text" class="form-control" formControlName="height"
+                       id="height">
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="form-group">
+                <label for="weight" class="col-form-label">Cân nặng:</label>
+                <input type="text" class="form-control" formControlName="weight"
+                       id="weight">
+              </div>
+            </div>
+            <div class="col-3">
+              <div class="form-group">
+                <label for="createDate" class="col-form-label">Ngày tạo:</label>
+                <input disabled type="date" class="form-control" formControlName="createdDate"
+                       id="createDate">
+              </div>
+            </div>
+          </div>
+          <div class="form-group text-right">
+            <button type="button" routerLink="/" class="btn-sm btn-secondary">Quay Lại</button>
+            <button type="submit" class="btn-sm ml-1 btn-secondary">Chỉnh Sửa
+            </button>
+          </div>
+        </fieldset>
+      </form>
+      <form action="">
+        <div class="form-row mt-1 text-center">
+          <div class="col-12">
+            <div class="form-group bg-dark">
+              <label class="col-form-label  text-white"><h5>Lịch sử khám</h5></label>
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <table class="table table-bordered table-hover">
+            <thead>
+            <tr>
+              <th>#</th>
+              <th>Ngày Khám</th>
+              <th>Bệnh Lý</th>
+              <th>Đơn Thuốc</th>
+              <th>Ghi Chú</th>
+              <th>BS</th>
+            </tr>
+            </thead>
+            <ng-container *ngIf="messageError != ''; else elseBlock">
+              <tbody>
+              <tr>
+                <td colspan="7" class="text-center">
+                  <span class="text-danger">{{messageError}}</span>
+                </td>
+              </tr>
+              </tbody>
+            </ng-container>
+            <ng-template #elseBlock>
+              <tbody>
+              <tr *ngFor="let history of histories| slice: (page-1) * pageSize : page * pageSize;index as i">
+                <td style="width: 5%">{{i + 1}}</td>
+                <td>{{history.dateCreated | date: 'dd/MM/yyyy'}}</td>
+                <td>
+          <span *ngFor="let path of history.pathologicals">
+            <span>+ {{path['pathologicalName']}}</span> <br>
+          </span>
+                </td>
+                <td>
+          <span *ngFor="let medicine of history.medicines">
+            <span>+ {{medicine['medicineName']}}</span> <br>
+          </span>
+                </td>
+                <td class="text-dark">{{history.note}}</td>
+                <td>{{history.doctorName}}</td>
+              </tr>
+              </tbody>
+            </ng-template>
+          </table>
+        </div>
+      </form>
+      <div class="clearfix">
+        <ngb-pagination class="d-flex justify-content-end"
+                        [(page)]="page"
+                        [pageSize]="pageSize"
+                        [collectionSize]="collectionSize"
+                        [maxSize]="5"
+                        [rotate]="true"
+                        [ellipses]="true"
+                        [boundaryLinks]="true">
+          <ng-template ngbPaginationEllipsis>...</ng-template>
+          <ng-template ngbPaginationNumber let-page>{{ page }}</ng-template>
+        </ngb-pagination>
+        <hr>
+      </div>
+    </div>
+  </div>
+  <div class="col-6">
+    <div class="container">
+      <form [formGroup]="createHistoryForm" (ngSubmit)="onSubmit()">
+        <div class="form-row mt-1 text-center">
+          <div class="col-12">
+            <div class="form-group bg-dark">
+              <label class="col-form-label  text-white"><h5>Thêm Lịch Sử Khám</h5></label>
+            </div>
+          </div>
+        </div>
+        <input type="hidden" class="form-control" formControlName="patientId" [(ngModel)]="patientId">
+        <div class="form-row mt-2">
+          <div class="col-6">
+            <label class=" mr-2">Bệnh lý:</label>
+            <button class="btn-delete" type="button" (click)="addPathological()"><i class="fa fa-plus text-primary"
+                                                                                    aria-hidden="true"></i></button>
+          </div>
+          <div class="col-6">
+            <label class=" mr-2">Đơn thuốc:</label>
+            <button class="btn-delete" type="button" (click)="addMedicineArray()"><i class="fa fa-plus text-primary"
+                                                                                     aria-hidden="true"></i></button>
+          </div>
+        </div>
+
+        <div class="form-row mt-2">
+          <div class="col-6">
+            <div formArrayName="pathologicals">
+              <div *ngFor="let path of pathologicals.controls; let i=index">
+                <div class="row g-3 align-items-center" [formGroupName]="i">
+                  <div class="col-auto ml-5 d-flex">
+                    <select style="width: 250px" class="form-control my-select" formControlName="idPathological">
+                      <option value="" disabled>Chọn bệnh</option>
+                      <option [ngValue]="e.id" *ngFor="let e of pathologicalList">
+                        {{e.pathologicalName.toUpperCase()}}
+                      </option>
+                    </select>
+                    <button class="btn-delete btn-sm" (click)="removePathological(i)"><i class="fa fa-times text-danger"
+                                                                                         aria-hidden="true"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-6">
+            <div formArrayName="medicineArray">
+              <div *ngFor="let medicine of medicineArray.controls; let i=index">
+                <div class="row g-3 align-items-center" [formGroupName]="i">
+                  <div class="col-auto ml-5 d-flex">
+                    <select style="width: 250px" class="form-control my-select" formControlName="idMedicine">
+                      <option value="" disabled>Chọn thuốc</option>
+                      <option [ngValue]="e.id" *ngFor="let e of medicineList">
+                        {{e.medicineName.toUpperCase()}}
+                      </option>
+                    </select>
+                    <button class="btn-delete" (click)="removeMedicineArray(i)"><i class="fa fa-times text-danger"
+                                                                                   aria-hidden="true"></i></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form-row mt-2">
+          <div class="col-6">
+            <div class="form-group">
+              <label class="" for="note">Ghi chú:</label>
+              <textarea class="form-control" id="note" formControlName="note" placeholder="Thêm ghi chú..."
+                        rows="1"></textarea>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="form-group">
+              <label class="" for="nameDoctor">Bác sĩ:</label>
+              <select formControlName="doctorName" class="form-control  bg-white"
+                      name="nameDoctor" id="nameDoctor">
+                <option value="BS. ĐÀO" class="" selected><span>BS. ĐÀO</span></option>
+                <option value="BS. TUẤN" class=""><span>BS. TUẤN</span></option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" style="width: 150px" class="btn-sm btn-secondary">Thêm
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

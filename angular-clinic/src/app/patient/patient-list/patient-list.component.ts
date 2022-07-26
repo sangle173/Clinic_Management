@@ -12,7 +12,7 @@ import {History} from '../../model/history';
 import {Pathological} from '../../model/pathological';
 import {Medicine} from '../../model/medicine';
 
-const DAILOC = ['ĐẠI AN', 'ÁI NGHĨA', 'DUY HÒA', 'DUY XUYÊN', 'ĐẠI CHÁNH', 'ĐẠI CƯỜNG', 'ĐẠI ĐỒNG', 'ĐẠI HIỆP', 'ĐẠI HÒA', 'ĐẠI HỒNG', 'ĐẠI HƯNG', 'ĐẠI LÃNH', 'ĐẠI MINH', 'ĐẠI NGHĨA', 'ĐẠI PHONG', 'ĐẠI QUANG', 'ĐẠI SƠN', 'ĐẠI TÂN', 'ĐẠI THẮNG', 'ĐẠI THẠNH', 'ĐÀ NẴNG', 'SÀI GÒN', 'KHÁC'];
+const DAILOC = ['ĐẠI AN', 'ÁI NGHĨA', 'DUY HÒA', 'DUY CHÂU', 'DUY XUYÊN', 'ĐẠI CHÁNH', 'ĐẠI CƯỜNG', 'ĐẠI ĐỒNG', 'ĐẠI HIỆP', 'ĐẠI HÒA', 'ĐẠI HỒNG', 'ĐẠI HƯNG', 'ĐẠI LÃNH', 'ĐẠI MINH', 'ĐẠI NGHĨA', 'ĐẠI PHONG', 'ĐẠI QUANG', 'ĐẠI SƠN', 'ĐẠI TÂN', 'ĐẠI THẮNG', 'ĐẠI THẠNH', 'ĐÀ NẴNG', 'SÀI GÒN', 'KHÁC'];
 
 @Component({
   selector: 'app-patient-list',
@@ -25,7 +25,9 @@ export class PatientListComponent implements OnInit {
   patientExisting: Patient;
   patientDelete: string;
   messageError: string;
-  keyword = '';
+  nameSearch = '';
+  addressSearch = '';
+  phoneNumberSearch = '';
   page: number = 1;
   pageSize: number = 10;
   collectionSize: number = 0;
@@ -58,7 +60,7 @@ export class PatientListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getAllPatients(this.keyword);
+    this.getAllPatients(this.nameSearch, this.addressSearch, this.phoneNumberSearch);
     this.getAllMedicines();
     this.getAllPathologicals();
     console.log(this.pathologicalList);
@@ -156,8 +158,8 @@ export class PatientListComponent implements OnInit {
     });
   }
 
-  getAllPatients(keyword: string) {
-    this.patientService.getAll(keyword).subscribe(data => {
+  getAllPatients(name: string, address: string, phoneNumber: string) {
+    this.patientService.getAll(name, address, phoneNumber).subscribe(data => {
       this.messageError = '';
       if (data.length === 0) {
         this.patients = [];
@@ -190,7 +192,7 @@ export class PatientListComponent implements OnInit {
     }, e => {
       this.showErrorDelete();
     }, () => {
-      this.getAllPatients(this.keyword);
+      this.getAllPatients(this.nameSearch, this.addressSearch, this.phoneNumberSearch);
     });
   }
 
@@ -266,5 +268,11 @@ export class PatientListComponent implements OnInit {
       icon: 'warning',
       confirmButtonText: 'Đóng'
     });
+  }
+
+  clearSearch() {
+    this.nameSearch = '';
+    this.addressSearch = '';
+    this.phoneNumberSearch = '';
   }
 }

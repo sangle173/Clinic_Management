@@ -9,7 +9,7 @@ public interface CRUDService<E> {
 
     List<E> findAll();
 
-    void save(E e);
+    E save(E e);
 
     E findById(Long id);
 
