@@ -6,7 +6,7 @@ import {Router} from '@angular/router';
 
 const DAILOC = ['ĐẠI AN', 'ÁI NGHĨA', 'DUY HÒA', 'DUY CHÂU', 'DUY XUYÊN', 'ĐẠI CHÁNH', 'ĐẠI CƯỜNG', 'ĐẠI ĐỒNG', 'ĐẠI HIỆP', 'ĐẠI HÒA', 'ĐẠI HỒNG', 'ĐẠI HƯNG', 'ĐẠI LÃNH', 'ĐẠI MINH', 'ĐẠI NGHĨA', 'ĐẠI PHONG', 'ĐẠI QUANG', 'ĐẠI SƠN', 'ĐẠI TÂN', 'ĐẠI THẮNG', 'ĐẠI THẠNH', 'ĐÀ NẴNG', 'SÀI GÒN', 'KHÁC'];
 const MONTH = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
-const YEAR = ['2022', '2021', '2019', '2018', '2017', '2016', '2015', '2014', '2013', '2012', '2011', '2010', '2009', '2008', '2007'];
+const YEAR = ['2022', '2021', '2020', '2019', '2018', '2017', '2016', '2015', '2014', '2013', '2012', '2011', '2010', '2009', '2008', '2007'];
 
 @Component({
   selector: 'app-patient-create',
