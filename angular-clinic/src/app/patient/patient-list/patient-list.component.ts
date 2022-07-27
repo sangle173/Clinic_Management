@@ -44,8 +44,8 @@ export class PatientListComponent implements OnInit {
   yearOfBirthPatientChoosing: string;
   addressPatientChoosing: string;
   dateCreatedPatientChoosing: string;
-  weightPatientChoosing: number;
-  heightPatientChoosing: number;
+  weightPatientChoosing: string;
+  heightPatientChoosing: string;
 
   nearlyHistory: History;
 
