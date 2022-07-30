@@ -1,6 +1,5 @@
 package com.example.clinic.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
@@ -34,8 +33,8 @@ public class Patient {
     private String weight;
     private String height;
 
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, targetEntity = History.class)
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, targetEntity = ExamHistory.class)
     @JsonManagedReference
     @JsonIgnore
-    private List<History> examinationHistory = new ArrayList<>();
+    private List<ExamHistory> examinationExamHistory = new ArrayList<>();
 }

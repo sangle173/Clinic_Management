@@ -1,7 +1,7 @@
 package com.example.clinic.controller;
 
 import com.example.clinic.StringHelper;
-import com.example.clinic.model.History;
+import com.example.clinic.model.ExamHistory;
 import com.example.clinic.model.Medicine;
 import com.example.clinic.model.Pathological;
 import com.example.clinic.model.Patient;
@@ -38,33 +38,33 @@ public class HistoryController {
     MedicineServiceImpl medicineService;
 
     @GetMapping("/list")
-    public ResponseEntity<List<History>> getAllHistory() {
+    public ResponseEntity<List<ExamHistory>> getAllHistory() {
         return new ResponseEntity<>(historyService.findAll(), HttpStatus.OK);
     }
 
     @GetMapping("/{patientId}")
-    public ResponseEntity<List<History>> findHistoryById(@PathVariable("patientId") Long id) {
+    public ResponseEntity<List<ExamHistory>> findHistoryById(@PathVariable("patientId") Long id) {
         Patient patient = patientService.findById(id);
-        return new ResponseEntity<>(patient.getExaminationHistory(), HttpStatus.OK);
+        return new ResponseEntity<>(patient.getExaminationExamHistory(), HttpStatus.OK);
     }
 
 
     @GetMapping("/nearly/{patientId}")
-    public ResponseEntity<History> findNearlyHistoryById(@PathVariable("patientId") Long id) {
+    public ResponseEntity<ExamHistory> findNearlyHistoryById(@PathVariable("patientId") Long id) {
         Patient patient = patientService.findById(id);
-        History history = patient.getExaminationHistory().get(0);
-        return new ResponseEntity<>(history, HttpStatus.OK);
+        ExamHistory examHistory = patient.getExaminationExamHistory().get(0);
+        return new ResponseEntity<>(examHistory, HttpStatus.OK);
     }
 
 
     @PostMapping(value = "/new", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public ResponseEntity<History> createNewHistory(@RequestBody HistoryDTO historyDTO) {
-        History history = new History();
-        history.setNote(StringHelper.standardizedString(historyDTO.getNote()));
-        history.setUnitPrice(historyDTO.getUnitPrice());
-        history.setPatient(patientService.findById(historyDTO.getPatientId()));
-        history.setDoctorName(historyDTO.getDoctorName());
+    public ResponseEntity<ExamHistory> createNewHistory(@RequestBody HistoryDTO historyDTO) {
+        ExamHistory examHistory = new ExamHistory();
+        examHistory.setNote(StringHelper.standardizedString(historyDTO.getNote()));
+        examHistory.setUnitPrice(historyDTO.getUnitPrice());
+        examHistory.setPatient(patientService.findById(historyDTO.getPatientId()));
+        examHistory.setDoctorName(historyDTO.getDoctorName());
         Set<Pathological> pathologicalSet = new HashSet<>();
         Pathological pathological = null;
         for (Long element : historyDTO.getPathological()) {
@@ -78,14 +78,14 @@ public class HistoryController {
             medicine = medicineService.findById(element);
             medicineSet.add(medicine);
         }
-        history.setPathologicals(pathologicalSet);
-        history.setMedicines(medicineSet);
-        historyService.save(history);
+        examHistory.setPathologicals(pathologicalSet);
+        examHistory.setMedicines(medicineSet);
+        historyService.save(examHistory);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<History> deleteHistory(@PathVariable("id") Long id) {
+    public ResponseEntity<ExamHistory> deleteHistory(@PathVariable("id") Long id) {
         historyService.deleteById(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }

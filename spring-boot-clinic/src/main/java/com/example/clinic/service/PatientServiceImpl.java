@@ -1,6 +1,6 @@
 package com.example.clinic.service;
 
-import com.example.clinic.model.History;
+import com.example.clinic.model.ExamHistory;
 import com.example.clinic.model.Patient;
 import com.example.clinic.repositories.PatientRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,12 +46,12 @@ public class PatientServiceImpl implements CRUDService<Patient> {
     @Override
     public Patient findById(Long id) {
         Patient patient = patientRepo.findById(id).orElse(null);
-        List<History> histories = patient.getExaminationHistory();
-        Comparator<History> compareById =
-                (History o1, History o2) -> o1.getId().compareTo(o2.getId());
+        List<ExamHistory> histories = patient.getExaminationExamHistory();
+        Comparator<ExamHistory> compareById =
+                (ExamHistory o1, ExamHistory o2) -> o1.getId().compareTo(o2.getId());
 
         Collections.sort(histories, compareById.reversed());
-        patient.setExaminationHistory(histories);
+        patient.setExaminationExamHistory(histories);
         return patient;
     }
 

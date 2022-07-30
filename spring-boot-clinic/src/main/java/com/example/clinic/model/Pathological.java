@@ -1,7 +1,6 @@
 package com.example.clinic.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -25,5 +24,5 @@ public class Pathological {
 
     @ManyToMany(mappedBy = "pathologicals", cascade = {CascadeType.ALL})
     @JsonBackReference
-    private Set<History> histories = new HashSet<>();
+    private Set<ExamHistory> histories = new HashSet<>();
 }
